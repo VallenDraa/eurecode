@@ -2,6 +2,10 @@ name: ESlint Linting Process
 
 on: [pull_request, push]
 
+env:
+  DATABASE_URL: "CI_FAKE_URL"
+  NEXTAUTH_URL: "CI_FAKE_URL"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -16,6 +20,9 @@ jobs:
 
       - name: Install
         run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
 
       - name: Lint
         run: npm run lint

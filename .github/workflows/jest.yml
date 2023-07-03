@@ -2,6 +2,10 @@ name: Jest Unit Testing
 
 on: [pull_request, push]
 
+env:
+  DATABASE_URL: "CI_FAKE_URL"
+  NEXTAUTH_URL: "CI_FAKE_URL"
+
 jobs:
   unit-test:
     runs-on: ubuntu-latest
