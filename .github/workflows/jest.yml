@@ -3,8 +3,9 @@ name: Jest Unit Testing
 on: [pull_request, push]
 
 env:
-  DATABASE_URL: "CI_FAKE_URL"
-  NEXTAUTH_URL: "CI_FAKE_URL"
+  DATABASE_URL: https://fakeurl.com
+  NEXTAUTH_SECRET: FAKE_SECRET
+  NEXTAUTH_URL: https://fakeurl.com
 
 jobs:
   unit-test:
