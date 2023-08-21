@@ -11,8 +11,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
+  provider = "prisma-client-js"
 }
 
 // ROADMAP RELATED MODELS
@@ -29,16 +28,9 @@ model Roadmap {
 }
 
 model RoadmapNode {
-  id        String @id @default(cuid())
-  content   String @db.LongText
+  id        String   @id @default(cuid())
+  content   String   @db.LongText
   roadmapId String
-
-  // links are stored inside a single string field
-  // it'll be seperated by '\' so for example: 
-  // `youtube.com\google.com`
-  // will have 2 links which is youtube and google.
-  externalLinks String @default("") @db.Text
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -53,7 +45,6 @@ model RoadmapComment {
   upvotes         BigInt   @default(0)
   downvotes       BigInt   @default(0)
   parentCommentId String?
-  // replies         RoadmapComment[] @relation("Reply")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -81,45 +72,14 @@ model DiscussionComment {
   upvotes         BigInt   @default(0)
   downvotes       BigInt   @default(0)
   parentCommentId String?
-  // replies         DiscussionComment[] @relation("Reply")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@index([commenterId, discussionId, parentCommentId])
 }
 
-// BLOG RELATED MODELS
-model Blog {
-  id         String   @id @default(cuid())
-  content    String   @db.LongText
-  coverImage String?
-  writerId   String
-  upvotes    BigInt   @default(0)
-  downvotes  BigInt   @default(0)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@index([writerId])
-}
-
-model BlogComment {
-  id              String   @id @default(cuid())
-  content         String   @db.LongText
-  userId          String
-  blogId          String
-  upvotes         BigInt   @default(0)
-  downvotes       BigInt   @default(0)
-  parentCommentId String?
-  // replies         BlogComment[] @relation("Reply")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([userId, blogId, parentCommentId])
-}
-
 // USER SAVED ITEMS MODEL
 enum ItemType {
-  Blog
   Roadmap
   Discussion
 }
@@ -137,7 +97,7 @@ model SavedItem {
   @@index([userId])
 }
 
-// Necessary for Next auth
+// NECESSARY FOR NEXT AUTH
 model Account {
   id                String  @id @default(cuid())
   userId            String
