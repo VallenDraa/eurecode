@@ -1,7 +1,10 @@
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
+  const { data } = useSession();
+
   return (
     <>
       <Head>
@@ -38,7 +41,12 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <div className="flex flex-col items-center gap-2"></div>
+          <div className="flex flex-col items-center gap-2 text-white">
+            <button onClick={() => void signIn()}>Login</button>
+            {data !== null && (
+              <button onClick={() => void signOut()}>Sign Out</button>
+            )}
+          </div>
         </div>
       </main>
     </>
